@@ -1,0 +1,102 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "c34e75b9-2a2c-4d55-834d-05ed68f7c99f": {
+        "id": "c34e75b9-2a2c-4d55-834d-05ed68f7c99f",
+        "parent": null,
+        "name": "Rest_API_Sigma",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "453c55b0-860d-49be-b1b3-7f3694922f48"
+        ],
+        "isRemovable": false,
+        "filePath": "Rest_API_Sigma"
+      },
+      "453c55b0-860d-49be-b1b3-7f3694922f48": {
+        "id": "453c55b0-860d-49be-b1b3-7f3694922f48",
+        "parent": "c34e75b9-2a2c-4d55-834d-05ed68f7c99f",
+        "name": "lambda.js",
+        "type": "LAMBDA_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Rest_API_Sigma/lambda.js",
+        "code": "exports.handler = function (event, context, callback) {\n    let response = {\n        \"isBase64Encoded\": true,\n        \"statusCode\": 200,\n        \"body\": \"Hello from sigma\"\n    }\n    callback(null, response);\n    // callback(null, { \"message\": \"Successfully executed\" });\n}",
+        "triggers": [
+          {
+            "resourceName": "apigusEast1sigmaapirestany",
+            "config": {}
+          }
+        ],
+        "config": {
+          "runtime": "nodejs8.10",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        }
+      }
+    },
+    "deletedFiles": [],
+    "rootNode": "c34e75b9-2a2c-4d55-834d-05ed68f7c99f",
+    "openFiles": [
+      "453c55b0-860d-49be-b1b3-7f3694922f48"
+    ],
+    "currentFileId": "453c55b0-860d-49be-b1b3-7f3694922f48",
+    "resources": {
+      "apigusEast1sigmaapirestany": {
+        "name": "apigusEast1sigmaapirestany",
+        "type": "API_GATEWAY",
+        "config": {
+          "selectedRegion": "us-east-1",
+          "apiMode": 0,
+          "apiName": "sigma_api_rest",
+          "endpointType": "EDGE",
+          "resourceMode": 0,
+          "resourceName": "",
+          "resourcePath": "/",
+          "restMethod": "ANY",
+          "proxyIntegration": true,
+          "enableCORS": true,
+          "stageMode": 0,
+          "stageName": "Prod"
+        },
+        "globallyEditable": false
+      }
+    },
+    "customTemplate": {
+      "dialect": null,
+      "definitions": {}
+    },
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {}
+    }
+  },
+  "PROJECT_META": {
+    "projectName": "Rest_API_Sigma",
+    "projectDescription": "",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east-1",
+    "platform": "AWS",
+    "platformRegions": {},
+    "lastSave": 1549863515291
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "Rest_API_Sigma",
+      "url": "https://github.com/TestAndunR/Rest_API_Sigma"
+    }
+  }
+}
