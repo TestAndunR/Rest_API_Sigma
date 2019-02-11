@@ -8,7 +8,8 @@
         "type": "DIRECTORY",
         "isDirectory": true,
         "children": [
-          "453c55b0-860d-49be-b1b3-7f3694922f48"
+          "453c55b0-860d-49be-b1b3-7f3694922f48",
+          "6a035cbb-58eb-4be5-8d80-6e233b7be2a2"
         ],
         "isRemovable": false,
         "filePath": "Rest_API_Sigma"
@@ -36,14 +37,39 @@
           "memory": 128,
           "layers": []
         }
+      },
+      "6a035cbb-58eb-4be5-8d80-6e233b7be2a2": {
+        "id": "6a035cbb-58eb-4be5-8d80-6e233b7be2a2",
+        "parent": "c34e75b9-2a2c-4d55-834d-05ed68f7c99f",
+        "name": "addUser.js",
+        "type": "LAMBDA_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Rest_API_Sigma/addUser.js",
+        "code": "let AWS = require('aws-sdk');\nconst ddb = new AWS.DynamoDB.DocumentClient();\n\nexports.handler = function (event, context, callback) {\n\n    let userId = event.body.userId;\n    let userName = event.body.userName;\n    ddb.put({\n        TableName: 'users-dbtable-serverless-dev',\n        Item: { 'userId': userId, 'name': userName }\n    }).promise().then(function (data) {\n        //your logic goes here\n        let response = {\n            statusCode: 200,\n            body: JSON.stringify(result.Item)\n        }\n        callback(null, response);\n    }).catch(function (err) {\n        //handle error\n        callback(new Error('Couldn\\'t add user.'))\n    });\n\n    callback(null, { \"message\": \"Successfully executed\" });\n}",
+        "triggers": [
+          {
+            "resourceName": "apigusEast1sigmaapirestuserpost",
+            "config": {}
+          }
+        ],
+        "config": {
+          "runtime": "nodejs8.10",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        }
       }
     },
     "deletedFiles": [],
     "rootNode": "c34e75b9-2a2c-4d55-834d-05ed68f7c99f",
     "openFiles": [
-      "453c55b0-860d-49be-b1b3-7f3694922f48"
+      "453c55b0-860d-49be-b1b3-7f3694922f48",
+      "6a035cbb-58eb-4be5-8d80-6e233b7be2a2"
     ],
-    "currentFileId": "453c55b0-860d-49be-b1b3-7f3694922f48",
+    "currentFileId": "6a035cbb-58eb-4be5-8d80-6e233b7be2a2",
     "resources": {
       "apigusEast1sigmaapirestany": {
         "name": "apigusEast1sigmaapirestany",
@@ -63,6 +89,64 @@
           "stageName": "Prod"
         },
         "globallyEditable": false
+      },
+      "apigusEast1sigmaapirestuserpost": {
+        "name": "apigusEast1sigmaapirestuserpost",
+        "type": "API_GATEWAY",
+        "config": {
+          "selectedRegion": "us-east-1",
+          "apiMode": 0,
+          "apiName": "sigma_api_rest",
+          "apiId": "znjr7kx39c",
+          "endpointType": "EDGE",
+          "rootResourceId": "22msba7ac9",
+          "existingResources": {
+            "/": "22msba7ac9"
+          },
+          "resourceMode": 0,
+          "resourceName": "user",
+          "resourcePath": "/user",
+          "restMethod": "POST",
+          "proxyIntegration": true,
+          "enableCORS": true,
+          "stageMode": 0,
+          "stageName": "Prod",
+          "stageDeploymentId": "4pjgdp"
+        },
+        "globallyEditable": false
+      },
+      "ddbusersDbtableServerlessDev": {
+        "name": "ddbusersDbtableServerlessDev",
+        "type": "DynamoDB",
+        "config": {
+          "mode": 1,
+          "operation": "put",
+          "table": {
+            "arn": "arn:aws:dynamodb:us-east-1:318300609668:table/users-dbtable-serverless-dev",
+            "name": "users-dbtable-serverless-dev",
+            "partitionKey": "userId",
+            "partitionKeyType": "S",
+            "hasSortKey": false,
+            "sortKey": "",
+            "sortKeyType": "S",
+            "mode": 1
+          },
+          "parameters": {
+            "Key": {},
+            "Item": {
+              "userId": "@{userId}",
+              "name": "@{userName}"
+            },
+            "ExpressionAttributeValues": {}
+          },
+          "triggerParams": {},
+          "validator": {
+            "validatableFields": {},
+            "validity": true
+          },
+          "valid": true
+        },
+        "globallyEditable": false
       }
     },
     "customTemplate": {
@@ -80,7 +164,14 @@
       }
     ],
     "packageJSON": {
-      "dependencies": {}
+      "dependencies": {
+        "aws-sdk": {
+          "name": "aws-sdk",
+          "version": "2.176.0",
+          "dev": true,
+          "notRemovable": false
+        }
+      }
     }
   },
   "PROJECT_META": {
@@ -90,7 +181,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1549863515291
+    "lastSave": 1549864006542
   },
   "VCS_STATE": {
     "provider": "GitHub",
